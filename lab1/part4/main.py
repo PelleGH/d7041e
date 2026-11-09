@@ -6,22 +6,23 @@ from models import create_default_models
 from sklearn import datasets
 from sklearn.metrics import accuracy_score, cohen_kappa_score, f1_score
 from sklearn.model_selection import train_test_split
+from tqdm import tqdm
 
 
 def main():
     results = []
 
-    for seed in range(10):
+    for seed in tqdm(range(10), desc="Seed"):
         ds = get_datasets(seed)
-        models = create_default_models()
+        models = create_default_models(seed)
 
-        for ((X_train, Y_train), (X_test, Y_test)), dataset_name in ds:
+        for ((X_train, Y_train), (X_test, Y_test)), dataset_name in tqdm(ds, desc="Dataset", leave=False):
 
-            print(f"Starting dataset {dataset_name}")
+            # print(f"Starting dataset {dataset_name}")
 
-            for (model, param_grid), model_name in models:
+            for (model, param_grid), model_name in tqdm(models, desc="Model", leave=False):
 
-                print(f"Model {model_name}")
+                # print(f"Model {model_name}")
 
                 best_params, best_score, best_model = cross_validation(model, param_grid, X_train, Y_train, seed)
 

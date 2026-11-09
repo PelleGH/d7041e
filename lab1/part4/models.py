@@ -1,4 +1,7 @@
 import numpy as np
+from clf import ClusterClassifier
+from sklearn.cluster import KMeans
+from sklearn.mixture import GaussianMixture
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 
@@ -36,10 +39,38 @@ def create_svm(kernel):
 
     return SVC(kernel=kernel), param_grid
 
+def create_kmeans(seed):
 
-def create_default_models():
+    param_grid = {
+        "n_clusters": range(2, 10),
+        "algorithm": ["lloyd", "elkan"]
+    }
+
+    return ClusterClassifier(KMeans(random_state=seed)), param_grid
+
+def create_gmm(seed=42):
+    param_grid = {
+        "clusterer__n_components": [2,3,4,5,6,7,8,9],
+        "clusterer__covariance_type": [
+            # "full" # "full", "tied", "diag", "spherical"
+            "diag", "spherical"
+        ]
+    }
+
+    model = ClusterClassifier(
+        GaussianMixture(
+            random_state=seed,
+            n_init=3
+        )
+    )
+
+    return model, param_grid
+
+def create_default_models(seed):
 
     return [
-        (create_knn(1), "knn"),
-        (create_svm("linear"), "svm")
+        # (create_knn(1), "knn"),
+        # (create_svm("linear"), "svm"),
+        # (create_kmeans(seed), "kmeans"),
+        (create_gmm(seed), "gmm")
     ]

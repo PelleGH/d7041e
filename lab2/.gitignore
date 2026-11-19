@@ -1,0 +1,9 @@
+lemmatized.text
+tasa.text
+.ds
+*.pyc
+.project
+.pydevproject
+.DS_Store
+
+__pycache__

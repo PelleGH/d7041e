@@ -32,10 +32,7 @@ def preprocess_data(sentences: list[str]):
             continue
 
         # Trim whitespace
-        s = sentence.strip()
-
-        # To lowercase
-        s = s.lower()
+        s = s.strip()
 
         # Remove punctuation. Unicode regex so Cyrillic and other non-latin languages keeps their letters.
         s = re.sub(r"[^\w\s]|\d|_", "", s)

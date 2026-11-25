@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
-df = pd.read_csv("results.csv")
+df = pd.read_csv("results2.csv")
 df["acc"] = df["acc"] / 100  # percent -> decimal
 
 fig, ax = plt.subplots(figsize=(8, 5))

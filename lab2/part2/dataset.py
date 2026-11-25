@@ -28,7 +28,7 @@ def preprocess_data(sentences: list[str]):
         s = unicodedata.normalize("NFKC", sentence).lower()
 
         # Replacement char or Latin-1-as-UTF-8 mojibake ("Ã©") -> drop the sentence
-        if "\ufffd" in s or "ã" in s or "â" in s and "€" in s:
+        if "\ufffd" in s or re.search(r"ã[\u0080-\u00bf]", s) or ("â" in s and "€" in s):
             continue
 
         # Trim whitespace

@@ -27,7 +27,7 @@ def list_europarl():
 cache = None
 def get_europarl():
     if not validate_downloads():
-        raise RuntimeError("You haven't downloaded the files yet. Run download_wortschatz.py first.")
+        raise RuntimeError("You haven't downloaded the files yet. Run download_europarl.py first.")
 
     global cache
 
